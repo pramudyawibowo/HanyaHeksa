@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bghome"
+    tools:context=".Login">
+
+    <RelativeLayout
+        android:id="@+id/atas"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:layout_marginLeft="40dp">
+
+        <Button
+            android:id="@+id/backlogin"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_arrow_back_black_24dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/logintext"
+        android:layout_below="@id/atas"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Login"
+        android:textSize="50dp"
+        android:textColor="#000000"/>
+
+    <RelativeLayout
+        android:layout_below="@id/logintext"
+        android:id="@+id/form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernamelogin"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernametext"
+                android:hint="Username"                android:layout_width="300dp"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_below="@id/usernamelogin"
+            android:id="@+id/passwordlogin"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordtext"
+                android:hint="Password"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnOnLog"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/form"
+        android:background="@drawable/mybutton"
+        android:layout_margin="40dp"
+        android:text="LOGIN"
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>
