@@ -31,6 +31,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "gambar VARCHAR(50) NOT NULL, " +
                 "deskripsi TEXT NOT NULL)";
         sqLiteDatabase.execSQL(queryproduk);
+        String queryadmin = "INSERT INTO users (username,password,name) " +
+                "VALUES ('admin', 'admin', 'Admin')";
+        sqLiteDatabase.execSQL(queryadmin);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     Cursor readAllProduk(){
-        String query = "SELECT nama, harga, gambar FROM produk";
+        String query = "SELECT * FROM produk";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

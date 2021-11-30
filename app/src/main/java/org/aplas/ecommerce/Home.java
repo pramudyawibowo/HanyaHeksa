@@ -46,7 +46,7 @@ public class Home extends AppCompatActivity {
 
         takeProduk();
 
-        adapterproduk = new AdapterProduk(Home.this, nama, harga, gambar);
+        adapterproduk = new AdapterProduk(Home.this, nama, harga, deskripsi, gambar);
         rvProduk.setAdapter(adapterproduk);
         rvProduk.setLayoutManager(new LinearLayoutManager(Home.this));
     }
@@ -56,11 +56,11 @@ public class Home extends AppCompatActivity {
         if(cursor.getCount() == 0){
             Toast.makeText(this, "Belum ada produk", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "ada produk", Toast.LENGTH_SHORT).show();
             while (cursor.moveToNext()) {
-                nama.add(cursor.getString(0));
-                harga.add(cursor.getString(1));
-                gambar.add(cursor.getString(2));
+                nama.add(cursor.getString(1));
+                harga.add(cursor.getString(2));
+                gambar.add(cursor.getString(3));
+                deskripsi.add(cursor.getString(4));
             }
         }
     }
