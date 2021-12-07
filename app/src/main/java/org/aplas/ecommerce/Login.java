@@ -11,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class Login extends AppCompatActivity {
     TextInputEditText username, password;
     DatabaseHelper db;
+    String usernameKey, passwordKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goHome = new Intent(Login.this, Home.class);
+                usernameKey = password.getText().toString();
+                passwordKey = password.getText().toString();
                 if (validateLogin()) {
+                    goHome.putExtra("username", usernameKey);
                     startActivity(goHome);
                 } else {
                     return;
@@ -77,8 +81,6 @@ public class Login extends AppCompatActivity {
     }
 
     private boolean validateLogin(){
-        String usernameKey = username.getText().toString();
-        String passwordKey = password.getText().toString();
 
         if (validateUsername() && validatePassword() && db.checkUser(usernameKey, passwordKey)) {
             return true;

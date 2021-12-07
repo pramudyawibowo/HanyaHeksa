@@ -19,7 +19,7 @@ public class Home extends AppCompatActivity {
 
     RecyclerView rvProduk;
     DatabaseHelper myDB;
-    ArrayList<String> nama, gambar, harga, deskripsi;
+    ArrayList<String> id, nama, gambar, harga, deskripsi;
     AdapterProduk adapterproduk;
 
     @Override
@@ -28,17 +28,22 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Button buttonAdd = findViewById(R.id.button_add);
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        String username = getIntent().getStringExtra("username");
+        if(username.equals("admin")){
+            buttonAdd.setVisibility(View.VISIBLE);
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goAdd = new Intent(Home.this, AddProduk.class);
+                    startActivity(goAdd);
+                }
+            });
+        }
 
-            @Override
-            public void onClick(View view) {
-                Intent goAdd = new Intent(Home.this, AddProduk.class);
-                startActivity(goAdd);
-            }
-        });
 
         rvProduk = findViewById(R.id.rvProduk);
         myDB = new DatabaseHelper(Home.this);
+        id = new ArrayList<>();
         nama = new ArrayList<>();
         gambar = new ArrayList<>();
         harga = new ArrayList<>();
@@ -46,9 +51,10 @@ public class Home extends AppCompatActivity {
 
         takeProduk();
 
-        adapterproduk = new AdapterProduk(Home.this, nama, harga, deskripsi, gambar);
-        rvProduk.setAdapter(adapterproduk);
+        adapterproduk = new AdapterProduk(Home.this, id, nama, harga, deskripsi, gambar);
         rvProduk.setLayoutManager(new LinearLayoutManager(Home.this));
+        rvProduk.setAdapter(adapterproduk);
+
     }
 
     void takeProduk(){
@@ -57,6 +63,7 @@ public class Home extends AppCompatActivity {
             Toast.makeText(this, "Belum ada produk", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
+                id.add(cursor.getString(0));
                 nama.add(cursor.getString(1));
                 harga.add(cursor.getString(2));
                 gambar.add(cursor.getString(3));

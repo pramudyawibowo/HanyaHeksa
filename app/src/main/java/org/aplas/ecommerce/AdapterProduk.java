@@ -2,6 +2,7 @@ package org.aplas.ecommerce;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,11 @@ public class AdapterProduk extends RecyclerView.Adapter<AdapterProduk.MyViewHold
 
     private Context context;
     private Activity activity;
-    private ArrayList nama, harga, gambar, deskripsi;
+    private ArrayList id, nama, harga, gambar, deskripsi;
 
-    AdapterProduk(Context context, ArrayList nama, ArrayList harga, ArrayList deskripsi, ArrayList gambar) {
+    AdapterProduk(Context context, ArrayList id, ArrayList nama, ArrayList harga, ArrayList deskripsi, ArrayList gambar) {
         this.context = context;
+        this.id = id;
         this.nama = nama;
         this.harga = harga;
         this.gambar = gambar;
@@ -41,13 +43,25 @@ public class AdapterProduk extends RecyclerView.Adapter<AdapterProduk.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Locale id = new Locale("id", "ID");
-        NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(id);
+        Locale idn = new Locale("id", "ID");
+        NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(idn);
         String harga2 = String.valueOf(harga.get(position));
         holder.nama_txt.setText(String.valueOf(nama.get(position)));
         holder.harga_txt.setText(rupiahFormat.format(Integer.parseInt(harga2)));
 //        holder.deskripsi_txt.setText(String.valueOf(deskripsi.get(position)));
         holder.gambar_img.setImageURI(Uri.parse(String.valueOf(gambar.get(position))));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goDetails = new Intent(context, DetailProduk.class);
+                goDetails.putExtra("id", id.get(position).toString());
+                goDetails.putExtra("nama", nama.get(position).toString());
+                goDetails.putExtra("harga", rupiahFormat.format(Integer.parseInt(harga2)));
+                goDetails.putExtra("gambar", String.valueOf(gambar.get(position)));
+                goDetails.putExtra("deskripsi", String.valueOf(deskripsi.get(position)));
+                context.startActivity(goDetails);
+            }
+        });
     }
 
     @Override
